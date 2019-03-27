@@ -39,7 +39,7 @@ public class EmpControllerConsumerTests {
     @BeforeClass
     public static void setup() {
         headers = new HashMap<>();
-        headers.put("Content-Type", "application/JSON");
+        headers.put("Content-Type", "application/json");
 
         objectMapper = new ObjectMapper();
     }
@@ -94,7 +94,7 @@ public class EmpControllerConsumerTests {
 
                 
         assertThat(response1.getStatusCode().value()).isEqualTo(200);
-        assertThat(response1.getHeaders().get("Content-Type").contains("application/JSON")).isTrue();
+        assertThat(response1.getHeaders().get("Content-Type").contains("application/json")).isTrue();
         assertThat(response1.getBody().getEmpName()).isEqualTo("kimbs");
         assertThat(response1.getBody().getJob()).isEqualTo("kimbs");
         assertThat(response1.getBody().getSalary()).isEqualTo(3100);
@@ -106,7 +106,7 @@ public class EmpControllerConsumerTests {
                 2
             );
         assertThat(response2.getStatusCode().value()).isEqualTo(200);
-        assertThat(response2.getHeaders().get("Content-Type").contains("application/JSON")).isTrue();
+        assertThat(response2.getHeaders().get("Content-Type").contains("application/json")).isTrue();
         assertThat(response2.getBody().getEmpName()).isEqualTo("test");
         assertThat(response2.getBody().getJob()).isEqualTo("test");
         assertThat(response2.getBody().getSalary()).isEqualTo(999);
@@ -154,7 +154,7 @@ public class EmpControllerConsumerTests {
             );
 
         assertThat(response1.getStatusCode().value()).isEqualTo(200);
-        assertThat(response1.getHeaders().get("Content-Type").contains("application/JSON")).isTrue();
+        assertThat(response1.getHeaders().get("Content-Type").contains("application/json")).isTrue();
 
         assertThat(response1.getBody().get(0).getEmpName()).isEqualTo("kimbs");
         assertThat(response1.getBody().get(0).getJob()).isEqualTo("kimbs");
@@ -204,7 +204,7 @@ public class EmpControllerConsumerTests {
             );
 
         assertThat(response.getStatusCode().value()).isEqualTo(201);
-        assertThat(response.getHeaders().get("Content-Type").contains("application/JSON")).isTrue();
+        assertThat(response.getHeaders().get("Content-Type").contains("application/json")).isTrue();
 
         assertThat(response.getBody().getEmpName()).isEqualTo("kimbs");
         assertThat(response.getBody().getJob()).isEqualTo("kimbs");
@@ -279,7 +279,7 @@ public class EmpControllerConsumerTests {
                 1
             );
         assertThat(response.getStatusCode().value()).isEqualTo(200);
-        assertThat(response.getHeaders().get("Content-Type").contains("application/JSON")).isTrue();
+        assertThat(response.getHeaders().get("Content-Type").contains("application/json")).isTrue();
 
         assertThat(response.getBody().getEmpName()).isEqualTo("test001");
         assertThat(response.getBody().getJob()).isEqualTo("test001");
