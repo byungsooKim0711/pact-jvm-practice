@@ -30,18 +30,22 @@ public class EmployeeController {
     public ResponseEntity<List<Employee>> list() {
         final List<Employee> employees = employeeService.findAll();
 
-        if(employees.isEmpty()) {
-            return new ResponseEntity<List<Employee>>(HttpStatus.NO_CONTENT);
+        if (employees.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        return new ResponseEntity<List<Employee>>(employees, HttpStatus.OK);
+        return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
     @GetMapping(value = "/emp/{id}")
-    public ResponseEntity<Optional<Employee>> selectOne(@PathVariable Long id) {
+    public ResponseEntity<Employee> selectOne(@PathVariable Long id) {
         final Optional<Employee> selected = employeeService.findById(id);
         
-        return new ResponseEntity<Optional<Employee>>(selected, HttpStatus.OK);
+        if (!selected.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(selected.get(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/emp")
@@ -54,7 +58,7 @@ public class EmployeeController {
     } 
 
     @PutMapping(value = "/emp/{id}")
-	public ResponseEntity<Optional<Employee>> update(@PathVariable Long id, @RequestBody final Employee employee) {
+	public ResponseEntity<Employee> update(@PathVariable Long id, @RequestBody final Employee employee) {
 		Optional<Employee> updated = employeeService.findById(id);
 		if (!updated.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -62,7 +66,7 @@ public class EmployeeController {
 		employee.setId(updated.get().getId());
         updated = Optional.of(employeeService.create(employee));
         
-		return new ResponseEntity<>(updated, HttpStatus.OK);
+		return new ResponseEntity<>(updated.get(), HttpStatus.OK);
     }
     
     @DeleteMapping(value = "/emp/{id}")
@@ -73,6 +77,6 @@ public class EmployeeController {
         }
         employeeService.deleteById(id);
         
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
