@@ -31,7 +31,7 @@ public class EmployeeController {
         final List<Employee> employees = employeeService.findAll();
 
         if (employees.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return ResponseEntity.noContent().build();
         }
 
         return new ResponseEntity<>(employees, HttpStatus.OK);
@@ -42,7 +42,7 @@ public class EmployeeController {
         final Optional<Employee> selected = employeeService.findById(id);
         
         if (!selected.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
 
         return new ResponseEntity<>(selected.get(), HttpStatus.OK);
@@ -61,7 +61,7 @@ public class EmployeeController {
 	public ResponseEntity<Employee> update(@PathVariable Long id, @RequestBody final Employee employee) {
 		Optional<Employee> updated = employeeService.findById(id);
 		if (!updated.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
 		employee.setId(updated.get().getId());
         updated = Optional.of(employeeService.create(employee));
@@ -73,7 +73,7 @@ public class EmployeeController {
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		Optional<Employee> deleted = employeeService.findById(id);
 		if (!deleted.isPresent()) {
-            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
         employeeService.deleteById(id);
         
